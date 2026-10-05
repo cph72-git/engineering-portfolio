@@ -71,6 +71,15 @@ margin:0; font-weight:800; font-variation-settings:"wdth" 125;
 font-size:clamp(3rem, 8.4vw, 6.6rem); line-height:.9; letter-spacing:-.035em;
 }
 h1 .last{display:block; -webkit-text-stroke:1.5px var(--ink); color:transparent}
+.hero-photo{width:150px; margin:0 0 22px; border:1.5px solid var(--ink); padding:5px; background:var(--paper)}
+.hero-photo img{aspect-ratio:1; object-fit:cover; width:100%}
+.hero-photo figcaption{font-family:var(--dim); font-size:.66rem; color:var(--ink-2); padding:4px 1px 0}
+.contact{display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:0; margin:0 0 32px; border-top:1px solid color-mix(in srgb, var(--paper) 30%, transparent)}
+.contact div{padding:16px 18px 16px 0; border-bottom:1px solid color-mix(in srgb, var(--paper) 30%, transparent)}
+.contact dt{font-size:.75rem; color:color-mix(in srgb, var(--paper) 60%, transparent); margin:0 0 4px}
+.contact dd{margin:0; font-family:var(--dim); font-size:.92rem; word-break:break-word}
+.contact a{color:var(--paper); text-decoration:underline; text-decoration-color:var(--red); text-underline-offset:3px}
+.contact a:hover{color:#fff; text-decoration-thickness:2px}
 .lead{max-width:34ch; font-size:1.2rem; line-height:1.5; margin:22px 0 28px; color:var(--ink)}
 .btns{display:flex; gap:12px; flex-wrap:wrap}
 .btn{
@@ -157,7 +166,7 @@ border:1.5px solid var(--ink); background:var(--paper); position:relative;
 .card:hover .go svg{transform:translateX(4px)}
 .card:hover{box-shadow:6px 6px 0 var(--red)}
 .card{transition:box-shadow .2s ease}
-.about{display:grid; grid-template-columns:200px 1fr 260px; gap:40px; align-items:start}
+.about{display:grid; grid-template-columns:1fr 260px; gap:40px; align-items:start}
 .portrait{border:1.5px solid var(--ink); padding:6px; background:var(--paper)}
 .portrait img{aspect-ratio:1; object-fit:cover; width:100%}
 .portrait figcaption{font-family:var(--dim); font-size:.7rem; color:var(--ink-2); padding:6px 2px 0}
@@ -188,7 +197,7 @@ border:1.5px solid var(--ink); background:var(--paper); position:relative;
 .num:nth-child(even){border-right:0}
 .work{grid-template-columns:1fr}
 .about{grid-template-columns:1fr}
-.portrait{max-width:200px}
+.hero-photo{width:110px}
 .offclock{border-left:0; padding-left:0; border-top:1.5px solid var(--ink); padding-top:18px}
 .readout{display:none}
 }
@@ -213,6 +222,7 @@ html{scroll-behavior:auto}
 <nav class="nav" aria-label="Main">
 <a href="#work">Work</a>
 <a href="projects/">Projects</a>
+<a href="#contact">Contact</a>
 <a class="cta" href="resume/">Resume</a>
 </nav>
 </div>
@@ -226,6 +236,10 @@ html{scroll-behavior:auto}
 <div class="readout" id="readout" aria-hidden="true">X 0.000  Y 0.000</div>
 <div class="hero-grid">
 <div>
+<figure class="hero-photo">
+<img src="assets/images/me/profile_photo_2026.JPG" alt="Portrait of Connor Hyde">
+<figcaption>Detail A, the engineer</figcaption>
+</figure>
 <h1>Connor<span class="last">Hyde</span></h1>
 <p class="lead">Mechanical engineer at Cornell. I design hardware, prove it with analysis, and machine it myself.</p>
 <div class="btns">
@@ -353,10 +367,6 @@ html{scroll-behavior:auto}
 <h2>I like owning a problem from sketch to finished part</h2>
 <p class="sub">A little more about me.</p>
 <div class="about">
-<figure class="portrait" style="margin:0">
-<img src="assets/images/me/profile_photo_2026.JPG" alt="Portrait of Connor Hyde">
-<figcaption>Fig. 1, the engineer</figcaption>
-</figure>
 <div class="about-text">
 <p>I'm a third-year <strong>mechanical engineering student at Cornell</strong>. On Cornell Hyperloop I'm the <strong>Track Team Lead and Machining Lead</strong>. Right now I'm researching track geometry and materials that will get our pod levitating.</p>
 <p>I also teach students to run manual lathes and mills safely, and I certify them for independent shop use. Machining keeps my designs honest. I know what a tolerance costs because I've held it myself.</p>
@@ -374,18 +384,50 @@ html{scroll-behavior:auto}
 </div>
 </section>
 </main>
-<footer class="foot">
+<footer class="foot" id="contact">
 <div class="wrap">
 <h2>Hiring for summer 2027?</h2>
 <p>I'm looking for mechanical design roles in aerospace and robotics. Send me a note.</p>
+<dl class="contact" id="contact-list"></dl>
 <div class="btns">
-<a class="btn solid" href="mailto:cph72@cornell.edu">Email me</a>
+<a class="btn solid" id="email-btn" href="mailto:cph72@cornell.edu">Email me</a>
 <a class="btn ghost" href="resume/">Open resume</a>
 </div>
 <small>Rev C. Drawn and built by Connor Hyde.</small>
 </div>
 </footer>
 <script>
+/* ===== FILL IN YOUR CONTACT INFO HERE =====
+   Type your info between the quotes. Leave a field as "" to hide it. */
+var CONTACT = {
+email: "cph72@cornell.edu",
+phone: "",
+linkedin: "",
+github: "https://github.com/cph72-git",
+location: "Ithaca, NY"
+};
+/* ===== END OF CONTACT INFO ===== */
+(function(){
+var list=document.getElementById('contact-list'); if(!list) return;
+function tidy(u){ u=(u||'').replace('https://','').replace('http://','').replace('www.',''); return u.charAt(u.length-1)=='/' ? u.slice(0,-1) : u; }
+var rows=[
+['Email', CONTACT.email, CONTACT.email ? 'mailto:'+CONTACT.email : ''],
+['Phone', CONTACT.phone, CONTACT.phone ? 'tel:'+CONTACT.phone.replace(/[^0-9+]/g,'') : ''],
+['LinkedIn', tidy(CONTACT.linkedin), CONTACT.linkedin],
+['GitHub', tidy(CONTACT.github), CONTACT.github],
+['Location', CONTACT.location, '']
+];
+rows.forEach(function(r){
+if(!r[1]) return;
+var d=document.createElement('div'), dt=document.createElement('dt'), dd=document.createElement('dd');
+dt.textContent=r[0];
+if(r[2]){ var a=document.createElement('a'); a.href=r[2]; a.textContent=r[1]; if(/^http/.test(r[2])){a.target='_blank'; a.rel='noopener';} dd.appendChild(a); }
+else dd.textContent=r[1];
+d.appendChild(dt); d.appendChild(dd); list.appendChild(d);
+});
+var eb=document.getElementById('email-btn');
+if(eb){ if(CONTACT.email) eb.href='mailto:'+CONTACT.email; else eb.style.display='none'; }
+})();
 (function(){
 var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var sheet=document.getElementById('sheet'), ro=document.getElementById('readout');
