@@ -12,7 +12,7 @@ title_separator          : "-"
 subtitle                 :
 name                     : "Connor Hyde"
 description              : Connor Hyde - Projects and CV
-baseurl                  : "/fa25-portfolio-cph72-git"
+baseurl                  : "/engineering-portfolio"
 
 # Theme and Style
 theme: jekyll-theme-minimal
